@@ -5,9 +5,10 @@ from transformers import pipeline, set_seed
 import os
 
 def get_model_tokenizer():
-    """ Setup model and its tokenizer"""
+    """ Setup and return the model and its tokenizer"""
     model_dir = "gpt/gpt2_model"
     checkpoint = "gpt2"
+
     if not os.path.exists(model_dir):
         print(f"Model {model_dir} does not exist. It will be downloaded from Huggingface")
         os.makedirs(model_dir)
