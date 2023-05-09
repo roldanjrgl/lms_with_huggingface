@@ -14,26 +14,29 @@ def gpt2_stages():
     """ Stage-1: Pre-processing """
     text = "Replace me by any text you'd like."
     encoded_input = tokenizer(text, return_tensors='pt')
+    # input_ids = encoded_input["input_ids"]
+    # attention_mask = encoded_input["attention_mask"]
 
     generated_sequence = model.generate(**encoded_input)
-    # output = model(**encoded_input)
+    generated_sequence = generated_sequence[0]
     print(generated_sequence)
     out_b = generated_sequence.shape[0]
     in_b = encoded_input["input_ids"].shape[0]
     framework = "pt"
     if framework == "pt":
         generated_sequence = generated_sequence.reshape(in_b, out_b // in_b, *generated_sequence.shape[1:])
+    generated_sequence = generated_sequence.numpy().tolist()
 
     text = tokenizer.decode(
-        generated_sequence,
+        generated_sequence[0],
         skip_special_tokens=True,
         # clean_up_tokenization_spaces=clean_up_tokenization_spaces,
     )
     print(text)
 
 def main():
-    gpt2_pipelines()
-    # gpt2_stages()
+    # gpt2_pipelines()
+    gpt2_stages()
 
 
 if __name__ == "__main__":
