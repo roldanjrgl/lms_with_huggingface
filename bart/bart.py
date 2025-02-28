@@ -48,7 +48,7 @@ def bart_stages():
     inputs = tokenizer(article, max_length=1024, return_tensors="pt")
 
     """ Stage-2: Model """
-    summary_ids = model.generate(inputs["input_ids"], num_beams=2, min_length=0, max_length=20)
+    summary_ids = model.generate(inputs["input_ids"], num_beams=2, min_length=0)
 
     """ Stage-3: Postprocessing """
     summary = tokenizer.batch_decode(summary_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
